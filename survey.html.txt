@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Card for Cali</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef, #fecfef);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 400px;
+            position: relative;
+        }
+        .card::before {
+            content: '❤️';
+            font-size: 50px;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        h1 {
+            color: #e91e63;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        #yes {
+            background: #4caf50;
+            color: white;
+        }
+        #yes:hover {
+            background: #45a049;
+        }
+        #no {
+            background: #f44336;
+            color: white;
+            position: absolute; /* Allows floating */
+        }
+        #no:hover {
+            background: #d32f2f;
+        }
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .heart {
+            position: absolute;
+            color: #ff4081;
+            font-size: 20px;
+            animation: float 3s infinite ease-in-out;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Cali, will you be my valentine?</h1>
+        <div class="buttons">
+            <button id="yes">Yes</button>
+            <button id="no">No</button>
+        </div>
+        <div class="hearts" id="hearts"></div>
+    </div>
+
+    <script>
+        // Floating No button
+        const noButton = document.getElementById('no');
+        noButton.addEventListener('mouseover', () => {
+            const card = document.querySelector('.card');
+            const cardRect = card.getBoundingClientRect();
+            const buttonRect = noButton.getBoundingClientRect();
+            
+            // Random position within the card, avoiding edges
+            const newLeft = Math.random() * (cardRect.width - buttonRect.width - 20) + 10;
+            const newTop = Math.random() * (cardRect.height - buttonRect.height - 100) + 50; // Below the text
+            
+            noButton.style.left = `${newLeft}px`;
+            noButton.style.top = `${newTop}px`;
+        });
+
+        // Yes button response
+        document.getElementById('yes').addEventListener('click', () => {
+            alert("Yay! Happy Valentine's Day, Cali! ❤️");
+        });
+
+        // Add floating hearts for ambiance
+        const heartsContainer = document.getElementById('hearts');
+        for (let i = 0; i < 10; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '❤️';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 3 + 's';
+            heartsContainer.appendChild(heart);
+        }
+    </script>
+</body>
+</html>
